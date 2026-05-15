@@ -83,11 +83,7 @@ class ServiceTest extends Test:
             for
                 client    <- createClientAndServer
                 // TODO: Can we avoid the lift here?
-                responses <- {
-                    println(client)
-                    client.oneToMany(Kyo.lift(request))
-                        .run
-                }
+                responses <- client.oneToMany(Kyo.lift(request)).run
 
             yield assert(responses == Chunk.from((1 to 5).map(n => Echo(s"$message $n"))))
             end for
